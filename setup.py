@@ -26,6 +26,6 @@ zookeepermodule = Extension("zookeeper",
                             )
 
 setup( name="zkpython",
-       version = "0.4",
+       version = "0.4-znanja1",
        description = "ZooKeeper Python bindings",
        ext_modules=[zookeepermodule] )
