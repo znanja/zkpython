@@ -1014,21 +1014,30 @@ static PyObject *pyzoo_create(PyObject *self, PyObject *args)
   int zkhid;
   char* values;
   int valuelen;
-  PyObject *acl = NULL;  
+  PyObject *acl = Py_None;
   int flags = 0;
   char realbuf[256];
   const int maxbuf_len = 256;
-  if (!PyArg_ParseTuple(args, "iss#O|i",&zkhid, &path, &values, &valuelen,&acl,&flags))
+  if (!PyArg_ParseTuple(args, "iss#|Oi",&zkhid, &path, &values, &valuelen,&acl,&flags))
     return NULL;
   CHECK_ZHANDLE(zkhid);
   struct ACL_vector aclv;
-  CHECK_ACLS(acl);
-  if (parse_acls(&aclv,acl) == 0) {
-    return NULL;
+  if(acl != Py_None)
+  {
+    CHECK_ACLS(acl);
+    if (parse_acls(&aclv,acl) == 0) {
+      return NULL;
+    }
+  } else
+  {
+    aclv = ZOO_OPEN_ACL_UNSAFE;
   }
   zhandle_t *zh = zhandles[zkhid];
   int err = zoo_create(zh, path, values, valuelen, &aclv, flags, realbuf, maxbuf_len);
-  free_acls(&aclv);
+  if(acl != Py_None) // did we end up creating out own ACL?
+  {
+    free_acls(&aclv);
+  }
   if (err != ZOK) {
     PyErr_SetString(err_to_exception(err), zerror(err));
     return NULL;
