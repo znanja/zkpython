@@ -1567,7 +1567,7 @@ PyMODINIT_FUNC initzookeeper(void) {
 #else
   PyObject *module = Py_InitModule("zookeeper", ZooKeeperMethods);
 #endif
-
+  init_zhandles(32);
   ZooKeeperException = PyErr_NewException("zookeeper.ZooKeeperException",
                                           PyExc_Exception,
                                           NULL);
