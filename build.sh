@@ -1,2 +1,1 @@
-
-python setup.py egg_info --tag-build=stf$(git rev-parse --short HEAD) bdist_egg
+CFLAGS="-Wreturn-type" python setup.py egg_info --tag-build=stf$(git rev-parse --short HEAD) bdist_egg
