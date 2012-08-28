@@ -22,7 +22,7 @@ zookeepermodule = Extension("zookeeper",
                             include_dirs=["/usr/include/c-client-src", "/usr/local/include/c-client-src",
                                     "/usr/include/zookeeper", "/usr/local/include/zookeeper",
                                     "/opt/local/include/zookeeper"],
-                            libraries=["libzookeeper_mt"],
+                            libraries=["zookeeper_mt"],
                             )
 
 setup( name="zkpython",
