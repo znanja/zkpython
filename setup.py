@@ -23,6 +23,7 @@ zookeepermodule = Extension("zookeeper",
                                     "/usr/include/zookeeper", "/usr/local/include/zookeeper",
                                     "/opt/local/include/zookeeper"],
                             libraries=["zookeeper_mt"],
+                            library_dirs=["/usr/lib", "/usr/local/lib", "/opt/local/lib", "/opt/pkg/lib"]
                             )
 
 setup( name="zkpython",
